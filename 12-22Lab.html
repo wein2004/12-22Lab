@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roll Dice</title>
+</head>
+<style>
+   #diceTable {
+       border-collapse: collapse;
+   }
+
+   #diceTable th, #diceTable td {
+       border: 1px solid black;
+       padding: 8px;
+       text-align: left;
+   }
+</style>
+<body>
+
+  <form action="#">
+    <input id="rollButton" type="button" value="Roll Dice">
+  </form>
+
+  <img id="die1" src="die1.png" alt="blank image">
+  <img id="die2" src="die1.png" alt="blank image">
+  <img id="die3" src="die1.png" alt="blank image">
+  <img id="die4" src="die1.png" alt="blank image">
+  <img id="die5" src="die1.png" alt="blank image">
+  <img id="die6" src="die1.png" alt="blank image">
+  <br>
+  <img id="die7" src="die1.png" alt="blank image">
+  <img id="die8" src="die1.png" alt="blank image">
+  <img id="die9" src="die1.png" alt="blank image">
+  <img id="die10" src="die1.png" alt="blank image">
+  <img id="die11" src="die1.png" alt="blank image">
+  <img id="die12" src="die1.png" alt="blank image">
+
+  <table id="diceTable">
+   <tr>
+       <th>face</th>
+       <th>percent</th>
+   </tr>
+   
+</table>
+
+  <script>
+    var die1Image, die2Image, die3Image, die4Image, die5Image, die6Image, die7Image, die8Image, die9Image, die10Image, die11Image, die12Image;
+
+    function start() {
+      var button = document.getElementById("rollButton");
+      button.addEventListener("click", rollDice);
+      button.addEventListener("click", updateFrequencyTable);
+      die1Image = document.getElementById("die1");
+      die2Image = document.getElementById("die2");
+      die3Image = document.getElementById("die3");
+      die4Image = document.getElementById("die4");
+      die5Image = document.getElementById("die5");
+      die6Image = document.getElementById("die6");
+      die7Image = document.getElementById("die7");
+      die8Image = document.getElementById("die8");
+      die9Image = document.getElementById("die9");
+      die10Image = document.getElementById("die10");
+      die11Image = document.getElementById("die11");
+      die12Image = document.getElementById("die12");
+    }
+
+    function rollDice() {
+      setImage(die1Image);
+      setImage(die2Image);
+      setImage(die3Image);
+      setImage(die4Image);
+      setImage(die5Image);
+      setImage(die6Image);
+      setImage(die7Image);
+      setImage(die8Image);
+      setImage(die9Image);
+      setImage(die10Image);
+      setImage(die11Image);
+      setImage(die12Image);
+    }
+
+    function setImage(dieImg) {
+      var dieValue = Math.floor(1 + Math.random() * 6);
+      dieImg.setAttribute("src", "die" + dieValue + ".png");
+      dieImg.setAttribute("alt", "die image with " + dieValue + " spot(s)");
+    }
+
+    window.addEventListener("load", start);
+
+
+    
+
+
+    function updateFrequencyTable() {
+      var table = document.getElementById("diceTable");
+
+      while (table.rows.length > 1) {
+         table.deleteRow(1);
+      }
+
+      var diceArray = [die1Image, die2Image, die3Image, die4Image, die5Image, die6Image, die7Image, die8Image, die9Image, die10Image, die11Image, die12Image];
+
+
+
+      // 初始化骰子的面數為1
+      var faces = 1;
+
+      // 為每個面數創建一行
+      for (var i = 1; i <= 6; i++) {
+         var row = table.insertRow(-1);
+         var cell1 = row.insertCell(0);
+         var cell2 = row.insertCell(1);
+
+         // 計算當前面數的占比並設置到表格中
+         var q = 0;
+         for (var v = 0; v < diceArray.length; v++) {
+            if (diceArray[v].src.split("/").pop() == "die" + i + ".png") {
+            q++;
+            }
+         }
+         var percent = (q / 12) * 100;
+         cell1.innerHTML = faces;
+         cell2.innerHTML = percent.toFixed(2) + "%";
+         faces++;
+      }
+}
+    
+
+
+
+
+  </script>
+
+</body>
+</html>
